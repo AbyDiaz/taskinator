@@ -49,8 +49,12 @@ var createTaskEl = function(taskDataObj) {
     taskInfoEl.innerHTML = "<h3 class='task-name'>" + taskDataObj.name + "</h3><span class='task-type'>" + taskDataObj.type + "</span>";
     
     listItemEl.appendChild(taskInfoEl);
+
+    var taskActionsEl = createTaskActions(taskIdCounter);
+    // appending taskActionsEl to listItemEl
+    listItemEl.appendChild(taskActionsEl);
     
-    // add entire list item to list 
+    // then appending listItemEl to the page
     tasksToDoEl.appendChild(listItemEl);
 
     // increase task counter for next unique id 
@@ -69,7 +73,7 @@ var createTaskActions = function(taskId) {
     editButtonEl.className = 'btn edit-btn';
     editButtonEl.setAttribute('data-task-id', taskId);
 
-    actionContainerEl.appendChild(editButtonEl);
+    actionContainerEl.appendChild(editButtonEl); 
 
     // create delete button
     var deleteButtonEl = document.createElement('button');
@@ -91,6 +95,7 @@ var createTaskActions = function(taskId) {
     // i < statusChoices.length keeps the for loop running by checking interator against number of items in array (length being property that returns number of items)
     // i++ increments counter by one after each loop iteration
     // statusChoices[i] returns value of array at given index
+    // ex. for above, when i = 0 of statusChoices[0], we get the first item 
     for (var i = 0; i < statusChoices.length; i++) {
         // create option element
         var statusOptionEl = document.createElement('option');
