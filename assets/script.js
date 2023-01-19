@@ -198,6 +198,20 @@ var taskStatusChangeHandler = function(event) {
 
     // find the parent task item element based on the id
     var taskSelected = document.querySelector(".task-item[data-task-id='" + taskId + "']");
+    
+    // handles moving the task from column to column depending on what the select option is on
+    if (statusValue === 'to do') {
+        tasksToDoEl.appendChild(taskSelected);
+    }
+    else if (statusValue === 'in progress') {
+        tasksInProgressEl.appendChild(taskSelected);
+    }
+    else if (statusValue === 'completed') {
+        tasksCompletedEl.appendChild(taskSelected);
+    }
+
+    console.log(event.target);
+    console.log(event.target.getAttribute('data-task-id'));
 };
 
 pageContentEl.addEventListener('change', taskStatusChangeHandler);
