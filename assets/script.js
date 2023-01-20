@@ -226,9 +226,16 @@ var taskStatusChangeHandler = function(event) {
     else if (statusValue === 'completed') {
         tasksCompletedEl.appendChild(taskSelected);
     }
+ debugger;
+    // update tasks in task array 
+    for (var i = 0; i < tasks.lenght; i++) {
+        if (tasks[i].id === parseInt(taskId)) {
+            tasks[i].status = statusValue;
+        }
+    }
 
-    console.log(event.target);
-    console.log(event.target.getAttribute('data-task-id'));
+    console.log(tasks);
+
 };
 
 pageContentEl.addEventListener('change', taskStatusChangeHandler);
