@@ -37,7 +37,7 @@ var taskFormHandler = function (event) {
         var taskDataObj = {
             name :taskNameInput,
             type :taskTypeInput,
-            status : 'to do'
+            status : "to do"
         };
     }
 
@@ -51,8 +51,6 @@ formEl.addEventListener('submit', taskFormHandler);
 
 var createTaskEl = function(taskDataObj) {
 
-    console.log(taskDataObj);
-    console.log(taskDataObj.status);
 
     // create list item
     var listItemEl = document.createElement('li');
@@ -73,15 +71,16 @@ var createTaskEl = function(taskDataObj) {
     listItemEl.appendChild(taskInfoEl);
 
     var taskActionsEl = createTaskActions(taskIdCounter);
+
     // appending taskActionsEl to listItemEl
     listItemEl.appendChild(taskActionsEl);
+    
+    // then appending listItemEl to the page
+    tasksToDoEl.appendChild(listItemEl);
 
     taskDataObj.id = taskIdCounter;
 
     tasks.push(taskDataObj);
-    
-    // then appending listItemEl to the page
-    tasksToDoEl.appendChild(listItemEl);
 
     // increase task counter for next unique id 
     taskIdCounter++;
@@ -184,6 +183,20 @@ pageContentEl.addEventListener('click', taskButtonHandler);
 var deleteTask = function(taskId) {
     var taskSelected = document.querySelector(".task-item[data-task-id='" + taskId + "']");
     taskSelected.remove();
+
+    // create new array to hold updated list of tasks 
+    var updatedTaskArr = [];
+
+    // loop through current tasks
+    for (var i = 0; i < tasks.length; i++) {
+        // if tasks[i].id doesnt match the value of taskId, lets keep that task and push it into the new array
+        if (tasks[i].id !== parseInt(taskId)) {
+            updatedTaskArr.push(tasks[i]);
+        }
+    }
+
+    // reassign tasks array to be the same as updatedTaskArr
+    tasks = updatedTaskArr;
 };  
 
 var editTask = function(taskId) {
@@ -226,7 +239,7 @@ var taskStatusChangeHandler = function(event) {
     else if (statusValue === 'completed') {
         tasksCompletedEl.appendChild(taskSelected);
     }
- debugger;
+
     // update tasks in task array 
     for (var i = 0; i < tasks.lenght; i++) {
         if (tasks[i].id === parseInt(taskId)) {
@@ -234,7 +247,6 @@ var taskStatusChangeHandler = function(event) {
         }
     }
 
-    console.log(tasks);
 
 };
 
